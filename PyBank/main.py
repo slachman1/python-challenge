@@ -2,8 +2,10 @@
 import os
 import csv
 
+#path to csv file
 csvpath = os.path.join('..', 'Resources', 'budget_data.csv')
 
+#define variables 
 row_count = 0
 total_amount = 0
 previous_amount = 0
@@ -15,17 +17,17 @@ greatest_decrease_date = ""
 
 with open(csvpath, 'r') as file:
     reader = csv.reader(file)
-    next(reader)  # Skip the header row
+    next(reader)  # Skip to the second row
     for row in reader:
         row_count += 1
         date = row[0]  # Assuming the first column contains dates
         amount = int(row[1])  # Assuming the second column contains integers
         total_amount += amount
-        if row_count > 1:
+        if row_count > 1: # moves down the csv file
             change = amount - previous_amount
-            total_change += change
+            total_change += change 
             if change > greatest_increase:
-                greatest_increase = change
+                greatest_increase = change 
                 greatest_increase_date = date
             if change < greatest_decrease:
                 greatest_decrease = change
@@ -34,6 +36,8 @@ with open(csvpath, 'r') as file:
 
 average_change = total_change / (row_count - 1)  # Exclude the first row from the calculation
 
+
+# print statements with calculations and results
 print("Financial Analysis")
 print("----------------------")
 print(f"Total Months: {row_count}")
